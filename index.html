@@ -292,6 +292,18 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
     </div>
   </div>
 
+  <!-- API Key Banner -->
+  <div id="apikey-banner" class="card" style="background:rgba(108,99,255,.1);border-color:rgba(108,99,255,.4);padding:14px;margin-bottom:14px;display:none;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:24px;">🔑</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:2px;">Set API Key for AI Features</div>
+        <div style="font-size:12px;color:var(--text2);">Get free key at console.anthropic.com</div>
+      </div>
+      <button class="bsm" onclick="setApiKey()" style="flex-shrink:0;font-size:12px;padding:8px 12px;">Set Key</button>
+    </div>
+  </div>
+
   <!-- Stats Row -->
   <div class="s2">
     <div class="sc">
@@ -852,6 +864,7 @@ const OBS=[
   {t:"What's your main goal?",s:"We'll personalize everything for you",k:"goal",o:[{l:"Lose Weight",i:"🔥"},{l:"Gain Muscle",i:"💪"},{l:"Stay Fit",i:"⚡"},{l:"Eat Healthy",i:"🥗"}]},
   {t:"Your diet type?",s:"So we can plan the perfect meals",k:"diet",o:[{l:"Vegetarian",i:"🥦"},{l:"Non-Veg",i:"🍗"},{l:"Vegan",i:"🌱"},{l:"Eggetarian",i:"🥚"}]},
   {t:"Activity level?",s:"Helps us calibrate your targets perfectly",k:"activity",o:[{l:"Beginner",i:"🚶"},{l:"Moderate",i:"🏃"},{l:"Active",i:"🏋️"},{l:"Athlete",i:"🏆"}]},
+  {t:"Your body stats?",s:"For accurate calories & macro targets",k:"_bodystats",o:[]},
 ];
 function showOb(){document.getElementById('ob-screen').style.display='flex';renderOb();}
 function renderOb(){
@@ -859,17 +872,57 @@ function renderOb(){
   document.getElementById('obs').textContent='Step '+(obs+1)+' of '+OBS.length;
   document.getElementById('obt').textContent=s.t;
   document.getElementById('obsub').textContent=s.s;
-  document.getElementById('obopts').innerHTML=s.o.map(o=>`<div class="oc${obd[s.k]===o.l?' on':''}" onclick="pickOb('${o.l}')"><div class="oc-i">${o.i}</div><div class="oc-l">${o.l}</div></div>`).join('');
   document.getElementById('obdots').innerHTML=OBS.map((_,i)=>`<div class="dot${i===obs?' on':''}"></div>`).join('');
+  if(s.k==='_bodystats'){
+    document.getElementById('obopts').innerHTML=`
+      <div style="grid-column:1/-1;">
+        <div style="display:flex;gap:10px;margin-bottom:14px;">
+          <div style="flex:1;">
+            <div class="lbl">Age</div>
+            <input type="number" id="ob-age" placeholder="e.g. 22" style="width:100%;padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);font-size:15px;color:var(--text);font-family:inherit;outline:none;" onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--border)'"/>
+          </div>
+          <div style="flex:1;">
+            <div class="lbl">Gender</div>
+            <select id="ob-gender" style="width:100%;padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);font-size:15px;color:var(--text);font-family:inherit;outline:none;">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:20px;">
+          <div style="flex:1;">
+            <div class="lbl">Weight (kg)</div>
+            <input type="number" id="ob-weight" placeholder="e.g. 70" style="width:100%;padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);font-size:15px;color:var(--text);font-family:inherit;outline:none;" onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--border)'"/>
+          </div>
+          <div style="flex:1;">
+            <div class="lbl">Height (cm)</div>
+            <input type="number" id="ob-height" placeholder="e.g. 175" style="width:100%;padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);font-size:15px;color:var(--text);font-family:inherit;outline:none;" onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--border)'"/>
+          </div>
+        </div>
+        <button class="btn-main" onclick="submitBodyStats()">Continue →</button>
+      </div>`;
+  } else {
+    document.getElementById('obopts').innerHTML=s.o.map(o=>`<div class="oc${obd[s.k]===o.l?' on':''}" onclick="pickOb('${o.l}')"><div class="oc-i">${o.i}</div><div class="oc-l">${o.l}</div></div>`).join('');
+  }
+}
+function submitBodyStats(){
+  const age=+document.getElementById('ob-age').value;
+  const weight=+document.getElementById('ob-weight').value;
+  const height=+document.getElementById('ob-height').value;
+  const gender=document.getElementById('ob-gender').value;
+  if(!age||!weight||!height){alert('Please fill all fields!');return;}
+  obd.age=age;obd.weight=weight;obd.height=height;obd.gender=gender;
+  finishOnboard();
 }
 function pickOb(v){
   obd[OBS[obs].k]=v;
   if(obs<OBS.length-1){obs++;renderOb();}
-  else{
-    const u={...U,...obd,onboarded:true};U=u;
-    lss('fla_'+u.email,u);lss('fl_last',u.email);
-    document.getElementById('ob-screen').style.display='none';showMain();
-  }
+  else finishOnboard();
+}
+function finishOnboard(){
+  const u={...U,...obd,onboarded:true};U=u;
+  lss('fla_'+u.email,u);lss('fl_last',u.email);
+  document.getElementById('ob-screen').style.display='none';showMain();
 }
 
 // ── MAIN ─────────────────────────────────────────────────────
@@ -891,18 +944,35 @@ function goTo(sc,el){
 }
 
 // ── DASHBOARD ────────────────────────────────────────────────
+function calcTargets(){
+  const w=U.weight||70,h=U.height||170,a=U.age||25,g=U.gender||'male';
+  const bmr=g==='male'?(10*w)+(6.25*h)-(5*a)+5:(10*w)+(6.25*h)-(5*a)-161;
+  const actM=U.activity==='Beginner'?1.375:U.activity==='Moderate'?1.55:U.activity==='Active'?1.725:1.9;
+  const tdee=Math.round(bmr*actM);
+  let cal=tdee;
+  if(U.goal==='Lose Weight')cal=Math.round(tdee-500);
+  else if(U.goal==='Gain Muscle')cal=Math.round(tdee+300);
+  const protein=Math.round(w*(U.goal==='Gain Muscle'?2.2:1.8));
+  const fat=Math.round((cal*0.25)/9);
+  const carbs=Math.round((cal-(protein*4)-(fat*9))/4);
+  const fiber=Math.min(Math.round(cal/100),40);
+  return {cal,protein,fat,carbs,fiber};
+}
 function initDash(){
   const h=new Date().getHours();
   document.getElementById('dgreet').textContent=h<12?'Good morning ☀️':h<17?'Good afternoon 🌤️':'Good evening 🌙';
   document.getElementById('dname').textContent=(U.name||'').split(' ')[0]+' 👋';
   document.getElementById('dstreak').textContent=ls('fl_streak',7);
-  const gc=U.goal==='Lose Weight'?1800:U.goal==='Gain Muscle'?2800:2200;
-  document.getElementById('dcalg').textContent='Goal: '+gc+' kcal';
-  document.getElementById('dcalb').style.width=Math.min((1240/gc)*100,100)+'%';
+  const t=calcTargets();
+  document.getElementById('dcalg').textContent='Goal: '+t.cal+' kcal';
+  document.getElementById('dcalb').style.width=Math.min((1240/t.cal)*100,100)+'%';
+  const mr=document.querySelectorAll('.mc2 .mv');
+  if(mr.length>=4){mr[0].textContent=t.protein+'g';mr[1].textContent=t.carbs+'g';mr[2].textContent=t.fat+'g';mr[3].textContent=t.fiber+'g';}
   renderDW();updateStepUI();
   const q=QUOTES[new Date().getDay()%QUOTES.length];
   document.getElementById('dquote').innerHTML=`<div style="font-size:11px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">✦ Daily Motivation</div><div style="font-size:15px;font-weight:600;line-height:1.6;margin-bottom:6px;">"${q.t}"</div><div style="font-size:12px;color:var(--text2);">${q.a}</div>`;
   renderBadges();
+  checkApiKeyBanner();
 }
 function renderDW(){
   document.getElementById('dwl').textContent=water+'/8';
@@ -936,6 +1006,11 @@ function showProfile(){
     <div class="row"><div class="rl">Goal</div><div class="rv">${U.goal||'—'}</div></div>
     <div class="row"><div class="rl">Diet</div><div class="rv">${U.diet||'—'}</div></div>
     <div class="row"><div class="rl">Activity</div><div class="rv">${U.activity||'—'}</div></div>
+    <div class="row"><div class="rl">Weight</div><div class="rv">${U.weight||'—'} kg</div></div>
+    <div class="row"><div class="rl">Height</div><div class="rv">${U.height||'—'} cm</div></div>
+    <div class="row"><div class="rl">Age</div><div class="rv">${U.age||'—'} yrs</div></div>
+    ${U.weight&&U.height?`<div class="row"><div class="rl">BMI</div><div class="rv">${(U.weight/((U.height/100)**2)).toFixed(1)}</div></div>`:''}
+    <div class="row"><div class="rl">Daily Calorie Target</div><div class="rv">${calcTargets().cal} kcal</div></div>
     <div class="row" style="border:none;"><div class="rl">Streak</div><div class="rv">${ls('fl_streak',7)} days 🔥</div></div>`;
   document.getElementById('pmodal').style.display='flex';
 }
@@ -1045,14 +1120,18 @@ async function scanFood(inp){
     const b64=ev.target.result.split(',')[1];
     const mime=file.type||'image/jpeg';
     try{
-      const r=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,
-          messages:[{role:'user',content:[
-            {type:'image',source:{type:'base64',media_type:mime,data:b64}},
-            {type:'text',text:`You are a nutrition expert. Analyze this food image carefully and provide a detailed breakdown:
-
-1. 🍽️ Food identified (be specific)
+      const apiKey = ls('fl_apikey', '');
+      if(!apiKey){
+        const k = prompt('🔑 Enter your Anthropic API key to use AI features:\n(Get free key at console.anthropic.com)');
+        if(!k){document.getElementById('fload').style.display='none';return;}
+        lss('fl_apikey', k.trim());
+      }
+      const key2 = ls('fl_apikey','');
+      const imgBody = {model:'claude-sonnet-4-20250514',max_tokens:900,
+        messages:[{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:mime,data:b64}},
+          {type:'text',text:`You are a nutrition expert. Analyze this food image and provide:
+1. 🍽️ Food identified
 2. ⚖️ Estimated serving size
 3. 🔥 Calories (kcal)
 4. 💪 Protein (g)
@@ -1060,13 +1139,16 @@ async function scanFood(inp){
 6. 🧈 Fat (g)
 7. 🌿 Fiber (g)
 8. 💊 Key vitamins & minerals
-9. ⭐ Health rating (1-10) with brief reason
+9. ⭐ Health rating (1-10) with reason
 10. 💡 One quick tip
-
-Be accurate, specific, and use emojis. If you can't identify the food clearly, make your best estimate.`}
-          ]}]})});
-      const d=await r.json();
-      const txt=d.content?.[0]?.text||'Could not analyze this image.';
+Be accurate and use emojis.`}
+        ]}]};
+      const imgResp = await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':key2,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify(imgBody)});
+      const imgD = await imgResp.json();
+      const txt=imgD.content?.[0]?.text||'Could not analyze this image.';
       document.getElementById('fresult').innerHTML=`
         <div class="scan-result-box">${txt}</div>
         <button class="bsm bg2 bfull" onclick="document.getElementById('fprev').style.display='none';document.getElementById('fresult').innerHTML='';">📸 Scan Another Food</button>`;
@@ -1084,15 +1166,11 @@ async function nutAsk(){
   document.getElementById('naiload').style.display='block';
   document.getElementById('nairesp').style.display='none';
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,
-        messages:[{role:'user',content:`You are a certified nutrition expert. User profile: diet=${U.diet||'vegetarian'}, goal=${U.goal||'stay fit'}. Answer this question concisely with practical advice and emojis: ${q}`}]})});
-    const d=await r.json();
-    document.getElementById('nairesp').textContent=d.content?.[0]?.text||'No response received.';
+    const txt=await callAI([{role:'user',content:`You are a certified nutrition expert. User profile: diet=${U.diet||'vegetarian'}, goal=${U.goal||'stay fit'}. Answer this question concisely with practical advice and emojis: ${q}`}],null,700);
+    document.getElementById('nairesp').textContent=txt||'No response received.';
     document.getElementById('nairesp').style.display='block';
-  }catch{
-    document.getElementById('nairesp').textContent='❌ Connection error. Please check your internet and try again.';
+  }catch(e){
+    document.getElementById('nairesp').textContent='❌ '+e.message;
     document.getElementById('nairesp').style.display='block';
   }
   document.getElementById('naiload').style.display='none';
@@ -1183,15 +1261,11 @@ async function genWkt(){
   document.getElementById('waiload').style.display='block';
   document.getElementById('wairesp').style.display='none';
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,
-        messages:[{role:'user',content:`Create a complete ${U.goal||'fitness'} workout plan for someone at ${U.activity||'moderate'} fitness level. Include 5-6 exercises with exact sets, reps, rest time, and form tips. Format clearly with emojis. Be specific and motivating.`}]})});
-    const d=await r.json();
-    document.getElementById('wairesp').textContent=d.content?.[0]?.text||'No response.';
+    const txt=await callAI([{role:'user',content:`Create a complete ${U.goal||'fitness'} workout plan for someone at ${U.activity||'moderate'} fitness level. Include 5-6 exercises with exact sets, reps, rest time, and form tips. Format clearly with emojis. Be specific and motivating.`}],null,900);
+    document.getElementById('wairesp').textContent=txt||'No response.';
     document.getElementById('wairesp').style.display='block';
-  }catch{
-    document.getElementById('wairesp').textContent='❌ Connection error. Check your internet and try again.';
+  }catch(e){
+    document.getElementById('wairesp').textContent='❌ '+e.message;
     document.getElementById('wairesp').style.display='block';
   }
   document.getElementById('waiload').style.display='none';
@@ -1300,16 +1374,12 @@ async function sendChat(){
   document.getElementById('chatload').style.display='block';
   try{
     const hist=chats.slice(-12).map(m=>({role:m.r==='ai'?'assistant':'user',content:m.t}));
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,
-        system:`You are an expert personal fitness and nutrition AI coach. User profile: name=${U.name}, goal=${U.goal}, diet=${U.diet}, activity=${U.activity}. Be motivating, concise, practical, friendly. Use emojis naturally. Give actionable advice.`,
-        messages:hist})});
-    const d=await res.json();
-    chats.push({r:'ai',t:d.content?.[0]?.text||"I'm here to help!"});
+    const sys=`You are an expert personal fitness and nutrition AI coach. User profile: name=${U.name}, goal=${U.goal}, diet=${U.diet}, activity=${U.activity}. Be motivating, concise, practical, friendly. Use emojis naturally.`;
+    const txt=await callAI(hist,sys,700);
+    chats.push({r:'ai',t:txt||"I'm here to help!"});
     lss('fl_chats',chats.slice(-30));renderChats();
-  }catch{
-    chats.push({r:'ai',t:'❌ Connection error. Please check your internet and try again!'});
+  }catch(e){
+    chats.push({r:'ai',t:'❌ '+e.message});
     renderChats();
   }
   document.getElementById('chatload').style.display='none';
@@ -1319,18 +1389,52 @@ async function doCheckin(){
   document.getElementById('ciload').style.display='block';
   const en=document.getElementById('ensl').value,sl=document.getElementById('slptsl').value;
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,
-        messages:[{role:'user',content:`Daily check-in for ${U.name}: mood ${mood}/5, energy ${en}/10, slept ${sl} hours last night. Goal: ${U.goal}, diet: ${U.diet}, activity level: ${U.activity}. Give specific personalized advice for today's workout intensity, what to eat, and one motivational insight. Use emojis and be concise.`}]})});
-    const d=await r.json();
-    const reply=d.content?.[0]?.text||'No response.';
-    chats.push({r:'ai',t:'📊 Your daily check-in analysis:\n\n'+reply});
+    const reply=await callAI([{role:'user',content:`Daily check-in for ${U.name}: mood ${mood}/5, energy ${en}/10, slept ${sl} hours last night. Goal: ${U.goal}, diet: ${U.diet}, activity: ${U.activity}. Give specific personalized advice for today. Use emojis and be concise.`}],null,600);
+    chats.push({r:'ai',t:'📊 Your daily check-in:\n\n'+reply});
     lss('fl_chats',chats.slice(-30));
     ctab('chat',document.querySelectorAll('#s-coach .stab')[0]);
     renderChats();
-  }catch{alert('❌ Connection error. Check your internet and try again.');}
+  }catch(e){alert('❌ '+e.message);}
   document.getElementById('ciload').style.display='none';
+}
+
+// ── API HELPER ───────────────────────────────────────────────
+async function callAI(messages, system, maxTokens=800){
+  const apiKey = ls('fl_apikey', '');
+  if(!apiKey){
+    const k = prompt('🔑 Enter your Anthropic API key to use AI features:\n(Get free key at console.anthropic.com)\n\nYour key is saved locally and never shared.');
+    if(!k){throw new Error('No API key');}
+    lss('fl_apikey', k.trim());
+  }
+  const key = ls('fl_apikey','');
+  const body = {model:'claude-sonnet-4-20250514', max_tokens: maxTokens, messages};
+  if(system) body.system = system;
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key': key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body: JSON.stringify(body)
+  });
+  if(!r.ok){
+    if(r.status===401){lss('fl_apikey','');throw new Error('Invalid API key. Please try again.');}
+    throw new Error('API error: '+r.status);
+  }
+  const d = await r.json();
+  return d.content?.[0]?.text || '';
+}
+
+function setApiKey(){
+  const k=prompt('🔑 Enter your Anthropic API key:\n(Get free key at console.anthropic.com)\n\nKey is saved locally on your device only.');
+  if(k&&k.trim()){lss('fl_apikey',k.trim());document.getElementById('apikey-banner').style.display='none';alert('✅ API key saved! AI features are now active.');}
+}
+function checkApiKeyBanner(){
+  const key=ls('fl_apikey','');
+  const banner=document.getElementById('apikey-banner');
+  if(banner)banner.style.display=key?'none':'flex';
 }
 
 // ── AUTO LOGIN ────────────────────────────────────────────────
