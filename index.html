@@ -358,7 +358,7 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
       <div id="nairesp" style="display:none;" class="srbox"></div>
       <div id="naiload" style="display:none;text-align:center;padding:14px;color:var(--text2);">🤖 Thinking…</div>
       <div class="cr">
-        <input class="ci" id="naiinp" placeholder="e.g. Best foods for muscle gain?" onkeydown="if(event.key==='Enter')nutAsk()"/>
+        <input class="ci" id="nai-inp" placeholder="e.g. Best foods for muscle gain?" onkeydown="if(event.key==='Enter')nutAsk()"/>
         <button class="cs" onclick="nutAsk()">→</button>
       </div>
       <div class="chips">
@@ -467,27 +467,27 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
   <div id="p-vitals">
     <div class="card">
       <div class="ct">Health Vitals</div>
-      <div class="vr"><div class="vi2">❤️</div><div class="vl2">Heart Rate</div><input class="vinp" id="vhr" placeholder="72"/><div class="vu">bpm</div></div>
-      <div class="vr"><div class="vi2">🩸</div><div class="vl2">Systolic BP</div><input class="vinp" id="vbps" placeholder="120"/><div class="vu">mmHg</div></div>
-      <div class="vr"><div class="vi2">🩸</div><div class="vl2">Diastolic BP</div><input class="vinp" id="vbpd" placeholder="80"/><div class="vu">mmHg</div></div>
-      <div class="vr"><div class="vi2">💨</div><div class="vl2">Blood Oxygen</div><input class="vinp" id="vspo2" placeholder="98"/><div class="vu">%</div></div>
-      <div class="vr"><div class="vi2">😴</div><div class="vl2">Sleep Hours</div><input class="vinp" id="vslp" placeholder="7"/><div class="vu">hrs</div></div>
+      <div class="vr"><div class="vi2">❤️</div><div class="vl2">Heart Rate</div><input class="vinp" id="v-hr" placeholder="72"/><div class="vu">bpm</div></div>
+      <div class="vr"><div class="vi2">🩸</div><div class="vl2">Systolic BP</div><input class="vinp" id="v-bps" placeholder="120"/><div class="vu">mmHg</div></div>
+      <div class="vr"><div class="vi2">🩸</div><div class="vl2">Diastolic BP</div><input class="vinp" id="v-bpd" placeholder="80"/><div class="vu">mmHg</div></div>
+      <div class="vr"><div class="vi2">💨</div><div class="vl2">Blood Oxygen</div><input class="vinp" id="v-spo2" placeholder="98"/><div class="vu">%</div></div>
+      <div class="vr"><div class="vi2">😴</div><div class="vl2">Sleep Hours</div><input class="vinp" id="v-slp" placeholder="7"/><div class="vu">hrs</div></div>
       <div class="vr">
         <div class="vi2">😰</div><div class="vl2">Stress (1–10)</div>
-        <input type="range" min="1" max="10" id="vstrs" value="5" oninput="document.getElementById('vstrsv').textContent=this.value" style="flex:1;"/>
-        <div style="width:26px;text-align:center;font-weight:800;" id="vstrsv">5</div>
+        <input type="range" min="1" max="10" id="v-str" value="5" oninput="document.getElementById('v-strv').textContent=this.value" style="flex:1;"/>
+        <div style="width:26px;text-align:center;font-weight:800;" id="v-strv">5</div>
       </div>
       <button class="bsm bg2 bfull" style="margin-top:10px;" onclick="saveVitals()">💾 Save Vitals</button>
     </div>
     <div class="card">
       <div class="ct">BMI Calculator</div>
       <div style="display:flex;gap:10px;margin-bottom:14px;">
-        <div style="flex:1;"><div class="lbl">Weight (kg)</div><input type="number" id="bmiw" placeholder="70" oninput="calcBMI()"/></div>
-        <div style="flex:1;"><div class="lbl">Height (cm)</div><input type="number" id="bmih" placeholder="175" oninput="calcBMI()"/></div>
+        <div style="flex:1;"><div class="lbl">Weight (kg)</div><input type="number" id="bmi-w" placeholder="70" oninput="calcBMI()"/></div>
+        <div style="flex:1;"><div class="lbl">Height (cm)</div><input type="number" id="bmi-h" placeholder="175" oninput="calcBMI()"/></div>
       </div>
       <div style="text-align:center;padding:16px;background:var(--s2);border-radius:14px;border:1px solid var(--border);">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;" id="bmiv">—</div>
-        <div style="font-size:15px;font-weight:700;" id="bmis">Enter values above</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;" id="bmi-v">—</div>
+        <div style="font-size:15px;font-weight:700;" id="bmi-s">Enter values above</div>
         <div style="font-size:12px;color:var(--text2);margin-top:4px;">Healthy: 18.5–24.9</div>
       </div>
     </div>
@@ -498,7 +498,7 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
       <div class="ct">Weight History ⚖️</div>
       <div class="bc" id="wchart"></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
-        <input type="number" id="neww" placeholder="Today's weight (kg)" style="flex:1;"/>
+        <input type="number" id="new-w" placeholder="Today's weight (kg)" style="flex:1;"/>
         <button class="bsm" onclick="logWeight()">+ Log</button>
       </div>
     </div>
@@ -509,12 +509,12 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
     <div class="card">
       <div class="ct">Progress Photos 📸</div>
       <div class="pg" id="pgrid">
-        <div class="pc padd" onclick="document.getElementById('pinp').click()">
+        <div class="pc padd" onclick="document.getElementById('p-inp').click()">
           <div style="font-size:32px;">📸</div>
           <div style="font-size:13px;font-weight:700;color:var(--text2);">Add Photo</div>
         </div>
       </div>
-      <input type="file" id="pinp" accept="image/*" style="display:none;" onchange="addPhoto(this)"/>
+      <input type="file" id="p-inp" accept="image/*" style="display:none;" onchange="addPhoto(this)"/>
     </div>
     <div class="card" id="cmpcard" style="display:none;">
       <div class="ct">Before / After 🔄</div>
@@ -538,7 +538,7 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
       </div>
       <div class="lbl">Log Tonight</div>
       <div style="display:flex;gap:8px;margin-top:6px;">
-        <input type="number" id="newslp" placeholder="Hours e.g. 7.5" style="flex:1;"/>
+        <input type="number" id="new-slp" placeholder="Hours e.g. 7.5" style="flex:1;"/>
         <button class="bsm" onclick="logSlp()">+ Log</button>
       </div>
     </div>
@@ -569,7 +569,7 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
       <div class="cms" id="chatmsgs"></div>
       <div id="chatload" style="display:none;text-align:center;padding:10px;color:var(--text2);font-size:13px;">🤖 Thinking…</div>
       <div class="cr" style="margin-bottom:10px;">
-        <input class="ci" id="chatinp" placeholder="Ask your AI coach…" onkeydown="if(event.key==='Enter')sendChat()"/>
+        <input class="ci" id="chat-inp" placeholder="Ask your AI coach…" onkeydown="if(event.key==='Enter')sendChat()"/>
         <button class="cs" onclick="sendChat()">→</button>
       </div>
       <div class="chips" id="qchips"></div>
@@ -588,9 +588,9 @@ input[type=range]{width:100%;accent-color:var(--p);margin:6px 0 2px;}
         <div class="emo" onclick="setMood(5,this)">😁</div>
       </div>
       <div style="font-size:14px;font-weight:700;margin-bottom:6px;">Energy: <span id="enlbl">5</span>/10 ⚡</div>
-      <input type="range" min="1" max="10" value="5" id="ensl" oninput="document.getElementById('enlbl').textContent=this.value"/>
+      <input type="range" min="1" max="10" value="5" id="en-sl" oninput="document.getElementById('en-lbl').textContent=this.value"/>
       <div style="font-size:14px;font-weight:700;margin:14px 0 6px;">Hours slept: <span id="slptlbl">7</span>h 😴</div>
-      <input type="range" min="3" max="12" step="0.5" value="7" id="slptsl" oninput="document.getElementById('slptlbl').textContent=this.value"/>
+      <input type="range" min="3" max="12" step="0.5" value="7" id="slpt-sl" oninput="document.getElementById('slpt-lbl').textContent=this.value"/>
       <div style="margin-top:20px;">
         <div id="ciload" style="display:none;text-align:center;padding:12px;color:var(--text2);">🤖 Analyzing…</div>
         <button class="btn-main" onclick="doCheckin()">🚀 Get Personalized Advice</button>
@@ -868,7 +868,7 @@ const OBS=[
   {t:"Activity level?",s:"For accurate calorie targets",k:"activity",o:[{l:"Beginner",i:"🚶"},{l:"Moderate",i:"🏃"},{l:"Active",i:"🏋️"},{l:"Athlete",i:"🏆"}]},
   {t:"Your body stats?",s:"For personalized macros & yoga plan",k:"_body",o:[]},
 ];
-function showOb(){document.getElementById('ob-screen').style.display='flex';renderOb();}
+function showOb(){document.getElementById('ob-screen').style.display='flex';obs=0;obd={};renderOb();}
 function renderOb(){
   const s=OBS[obs];
   document.getElementById('obs').textContent='Step '+(obs+1)+' of '+OBS.length;
@@ -878,5 +878,498 @@ function renderOb(){
   if(s.k==='_body'){
     document.getElementById('obopts').innerHTML=`<div style="grid-column:1/-1;">
       <div style="display:flex;gap:10px;margin-bottom:12px;">
-        <div style="flex:1;"><div class="lbl">Age<
+        <div style="flex:1;"><div class="lbl">Age</div><input type="number" id="ob-age" placeholder="22" style="padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);color:var(--text);font-size:15px;font-family:inherit;outline:none;width:100%;" onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--border)'"/></div>
+        <div style="flex:1;"><div class="lbl">Gender</div><select id="ob-gender" style="padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);color:var(--text);font-size:15px;font-family:inherit;outline:none;width:100%;"><option value="male">Male</option><option value="female">Female</option></select></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:20px;">
+        <div style="flex:1;"><div class="lbl">Weight (kg)</div><input type="number" id="ob-weight" placeholder="70" style="padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);color:var(--text);font-size:15px;font-family:inherit;outline:none;width:100%;" onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--border)'"/></div>
+        <div style="flex:1;"><div class="lbl">Height (cm)</div><input type="number" id="ob-height" placeholder="175" style="padding:14px;border-radius:14px;border:2px solid var(--border);background:var(--s2);color:var(--text);font-size:15px;font-family:inherit;outline:none;width:100%;" onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--border)'"/></div>
+      </div>
+      <button class="btn-main" onclick="submitBody()">Let's Go! →</button>
+    </div>`;
+  }else{
+    document.getElementById('obopts').innerHTML=s.o.map(o=>`<div class="oc${obd[s.k]===o.l?' on':''}" onclick="pickOb('${o.l}')"><div class="oc-i">${o.i}</div><div class="oc-l">${o.l}</div></div>`).join('');
+  }
+}
+function pickOb(v){
+  const s=OBS[obs];
+  obd[s.k]=v;
+  // Highlight selected
+  document.querySelectorAll('.oc').forEach(c=>c.classList.remove('on'));
+  event.currentTarget.classList.add('on');
+  setTimeout(()=>{
+    if(obs<OBS.length-1){obs++;renderOb();}
+  },200);
+}
+function submitBody(){
+  const age=+document.getElementById('ob-age').value;
+  const weight=+document.getElementById('ob-weight').value;
+  const height=+document.getElementById('ob-height').value;
+  const gender=document.getElementById('ob-gender').value;
+  if(!age||!weight||!height){alert('Please fill all fields!');return;}
+  obd.age=age;obd.weight=weight;obd.height=height;obd.gender=gender;
+  const u={...U,...obd,onboarded:true};
+  U=u;lss('fla_'+u.email,u);lss('fl_last',u.email);
+  document.getElementById('ob-screen').style.display='none';
+  showMain();
+}
 
+// ── MAIN ─────────────────────────────────────────────────────
+function showMain(){
+  steps=ls('fl_steps',0);water=ls('fl_water',0);
+  weights=ls('fl_weights',[U.weight||70]);
+  slplog=ls('fl_sleep',[7,6.5,8,7,6,7.5,8]);
+  prs=ls('fl_prs',{});sets=ls('fl_sets',[]);
+  mtimes=ls('fl_mtimes',{"Breakfast":"08:00","Mid-Morning":"10:30","Lunch":"13:00","Evening Snack":"17:00","Dinner":"20:00"});
+  photos=ls('fl_photos',[]);chats=ls('fl_chats',[]);
+  document.getElementById('main').style.display='block';
+  initDash();initNut();initWkt();initYoga();initPro();initCoach();
+}
+function goTo(sc,el){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  document.getElementById('s-'+sc).classList.add('active');
+  el.classList.add('on');window.scrollTo(0,0);
+}
+
+// ── MACROS CALC ───────────────────────────────────────────────
+function calcTargets(){
+  const w=U.weight||70,h=U.height||170,a=U.age||25,g=U.gender||'male';
+  const bmr=g==='male'?(10*w)+(6.25*h)-(5*a)+5:(10*w)+(6.25*h)-(5*a)-161;
+  const actM=U.activity==='Beginner'?1.375:U.activity==='Moderate'?1.55:U.activity==='Active'?1.725:1.9;
+  let cal=Math.round(bmr*actM);
+  if(U.goal==='Lose Weight')cal=Math.round(cal-500);
+  else if(U.goal==='Gain Muscle')cal=Math.round(cal+300);
+  const protein=Math.round(w*(U.goal==='Gain Muscle'?2.2:1.8));
+  const fat=Math.round((cal*0.25)/9);
+  const carbs=Math.max(0,Math.round((cal-(protein*4)-(fat*9))/4));
+  const fiber=Math.min(38,Math.round(cal/100));
+  return {cal,protein,fat,carbs,fiber};
+}
+
+// ── DASHBOARD ────────────────────────────────────────────────
+function initDash(){
+  const h=new Date().getHours();
+  document.getElementById('dgreet').textContent=h<12?'Good morning ☀️':h<17?'Good afternoon 🌤️':'Good evening 🌙';
+  document.getElementById('dname').textContent=(U.name||'').split(' ')[0]+' 👋';
+  document.getElementById('dstreak').textContent=ls('fl_streak',7);
+  const t=calcTargets();
+  document.getElementById('dcal').textContent='—';
+  document.getElementById('dcalg').textContent='Goal: '+t.cal+' kcal';
+  document.getElementById('dcalb').style.width='0%';
+  document.getElementById('mac-p').textContent=t.protein+'g';
+  document.getElementById('mac-c').textContent=t.carbs+'g';
+  document.getElementById('mac-f').textContent=t.fat+'g';
+  document.getElementById('mac-fi').textContent=t.fiber+'g';
+  renderDW();updateStepUI();
+  const q=QUOTES[new Date().getDay()%QUOTES.length];
+  document.getElementById('dquote').innerHTML=`<div style="font-size:11px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">✦ Daily Motivation</div><div style="font-size:15px;font-weight:600;line-height:1.6;margin-bottom:6px;">"${q.t}"</div><div style="font-size:12px;color:var(--text2);">${q.a}</div>`;
+  renderBadges();
+}
+function renderDW(){
+  document.getElementById('dwl').textContent=water+'/8';
+  const c=document.getElementById('dwc');
+  if(c)c.innerHTML=Array.from({length:8},(_,i)=>`<div class="wc${i<water?' on':''}" onclick="tapW(${i})">💧</div>`).join('');
+}
+function tapW(i){water=i<water?i:i+1;lss('fl_water',water);renderDW();renderBW();}
+function renderBadges(){
+  document.getElementById('dbadges').innerHTML=BADGES.map((b,i)=>`
+    <div onclick="showBadge(${i})" style="background:var(--s1);border-radius:14px;padding:14px 8px;text-align:center;border:1px solid var(--border);cursor:pointer;${b.u?'':'opacity:.28;filter:grayscale(1);'}">
+      <div style="font-size:28px;margin-bottom:6px;">${b.i}</div>
+      <div style="font-size:10px;font-weight:700;color:${b.u?'var(--text)':'var(--text2)'};">${b.n}</div>
+    </div>`).join('');
+}
+function showBadge(i){
+  const b=BADGES[i];
+  document.getElementById('bmi2').textContent=b.i;
+  document.getElementById('bmn2').textContent=b.n;
+  document.getElementById('bmd2').textContent=b.d;
+  document.getElementById('bms2').innerHTML=b.u?'<span style="background:rgba(0,229,160,.2);color:var(--g);border-radius:99px;padding:6px 16px;font-size:13px;font-weight:700;">✅ Unlocked!</span>':'<span style="background:var(--s3);color:var(--text2);border-radius:99px;padding:6px 16px;font-size:13px;font-weight:700;">🔒 Locked</span>';
+  document.getElementById('bmodal').style.display='flex';
+}
+function showProfile(){
+  const t=calcTargets();
+  const bmi=U.weight&&U.height?(U.weight/((U.height/100)**2)).toFixed(1):'—';
+  const bmiStatus=bmi==='—'?'—':bmi<18.5?'Underweight':bmi<25?'Normal ✅':bmi<30?'Overweight':'Obese';
+  document.getElementById('profilecontent').innerHTML=`
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <div class="avatar">${(U.name||'?')[0].toUpperCase()}</div>
+      <div><div style="font-size:18px;font-weight:800;">${U.name}</div><div style="font-size:13px;color:var(--text2);">${U.email}</div></div>
+    </div>
+    <div class="row"><div class="rl">Goal</div><div class="rv">${U.goal||'—'}</div></div>
+    <div class="row"><div class="rl">Diet</div><div class="rv">${U.diet||'—'}</div></div>
+    <div class="row"><div class="rl">Activity</div><div class="rv">${U.activity||'—'}</div></div>
+    <div class="row"><div class="rl">Weight / Height</div><div class="rv">${U.weight||'—'}kg / ${U.height||'—'}cm</div></div>
+    <div class="row"><div class="rl">Age / Gender</div><div class="rv">${U.age||'—'} / ${U.gender||'—'}</div></div>
+    <div class="row"><div class="rl">BMI</div><div class="rv">${bmi} — ${bmiStatus}</div></div>
+    <div class="row" style="border:none;"><div class="rl">Daily Calorie Target</div><div class="rv">${t.cal} kcal</div></div>`;
+  document.getElementById('pmodal').style.display='flex';
+}
+
+// ── STEPS ─────────────────────────────────────────────────────
+function toggleSteps(){
+  if(!stepping){
+    if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
+      DeviceMotionEvent.requestPermission().then(r=>{if(r==='granted')startStep();else alert('Motion denied.');}).catch(()=>startStep());
+    }else startStep();
+  }else stopStep();
+}
+function startStep(){
+  stepping=true;lastMag=0;
+  document.getElementById('stepbtn').textContent='⏸ Pause';
+  document.getElementById('stepbtn').classList.add('bg2');
+  document.getElementById('steplive').style.display='block';
+  window.addEventListener('devicemotion',onMotion,true);
+}
+function stopStep(){
+  stepping=false;
+  document.getElementById('stepbtn').textContent='▶ Start';
+  document.getElementById('stepbtn').classList.remove('bg2');
+  document.getElementById('steplive').style.display='none';
+  window.removeEventListener('devicemotion',onMotion,true);
+}
+function onMotion(e){
+  const a=e.acceleration||e.accelerationIncludingGravity;
+  if(!a)return;
+  const x=a.x||0,y=a.y||0,z=a.z||0;
+  const mag=Math.sqrt(x*x+y*y+z*z);
+  if(lastMag===0){lastMag=mag;return;}
+  if(!scool&&Math.abs(mag-lastMag)>3){
+    steps++;lss('fl_steps',steps);updateStepUI();
+    scool=true;setTimeout(()=>{scool=false;},400);
+  }
+  lastMag=mag;
+}
+function updateStepUI(){
+  const n=document.getElementById('stepn');if(n)n.textContent=steps;
+  const inf=document.getElementById('stepinfo');if(inf)inf.textContent=(steps*0.0008).toFixed(2)+' km · ~'+Math.round(steps*0.04)+' cal';
+  const c=document.getElementById('stepc');if(c)c.style.strokeDashoffset=263.9*(1-Math.min(steps/10000,1));
+}
+
+// ── NUTRITION ─────────────────────────────────────────────────
+function getMeals(){
+  const d=U.diet||'Vegetarian';
+  return (d==='Non-Veg'||d==='Eggetarian')?NONVEG_MEALS:VEG_MEALS;
+}
+function initNut(){
+  document.getElementById('ndtag').textContent=U.diet||'—';
+  document.getElementById('daytabs').innerHTML=DAYS.map(d=>`<div class="dtb${d===aday?' on':''}" onclick="pickDay('${d}',this)">${d.slice(0,3)}</div>`).join('');
+  renderMeals();renderTiming();renderBW();
+}
+function ntab(t,el){
+  ['meals','timing','water','scan','nai'].forEach(x=>document.getElementById('n-'+x).style.display='none');
+  document.getElementById('n-'+t).style.display='block';
+  document.querySelectorAll('#s-nutrition .stab').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+  if(t==='water')renderBW();
+}
+function pickDay(d,el){
+  aday=d;
+  document.querySelectorAll('.dtb').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');renderMeals();
+}
+function renderMeals(){
+  const ms=getMeals()[aday]||[];
+  document.getElementById('ntcal').textContent=ms.reduce((a,m)=>a+m.c,0)+' kcal';
+  document.getElementById('ntpro').textContent=ms.reduce((a,m)=>a+m.p,0)+'g';
+  document.getElementById('ntcar').textContent=ms.reduce((a,m)=>a+m.ca,0)+'g';
+  document.getElementById('mealcards').innerHTML=ms.map(m=>`
+    <div class="mcrd">
+      <div class="mbdg">⏰ ${mtimes[m.t]||m.ti}</div>
+      <div class="mtp">${m.t}</div>
+      <div class="mnm">${m.n}</div>
+      <div class="mdesc">${m.desc}</div>
+      <div class="nts">
+        <span class="nt" style="background:rgba(255,107,53,.15);color:var(--o);">🔥 ${m.c} kcal</span>
+        <span class="nt" style="background:rgba(0,229,160,.12);color:var(--g);">💪 ${m.p}g protein</span>
+        <span class="nt" style="background:rgba(108,99,255,.15);color:#a78bfa;">🌾 ${m.ca}g carbs</span>
+        <span class="nt" style="background:rgba(251,191,36,.12);color:var(--gold);">🧈 ${m.f}g fat</span>
+        <span class="nt" style="background:var(--s3);color:var(--text2);">🌿 ${m.fi}g fiber</span>
+      </div>
+    </div>`).join('')+'<div class="crafted-tag">crafted by Mayank Jain</div>';
+}
+function renderTiming(){
+  document.getElementById('timingrows').innerHTML=Object.entries(mtimes).map(([m,t])=>`
+    <div class="trow">
+      <div class="ticon">${m==='Breakfast'?'🌅':m==='Mid-Morning'?'🍎':m==='Lunch'?'🍛':m==='Evening Snack'?'☕':'🌙'}</div>
+      <div class="tinfo"><div class="tmeal">${m}</div><div class="ttime">Daily reminder</div></div>
+      <input type="time" class="vinp" value="${t}" style="width:100px;" onchange="mtimes['${m}']=this.value;lss('fl_mtimes',mtimes);renderMeals();"/>
+    </div>`).join('');
+}
+function saveTiming(){lss('fl_mtimes',mtimes);alert('✅ Timings saved!');}
+function renderBW(){
+  const circ=document.getElementById('wcirc');if(circ)circ.style.strokeDashoffset=408.4*(1-water/8);
+  const b=document.getElementById('wbig');if(b)b.textContent=water;
+  const ml=document.getElementById('wml');if(ml)ml.textContent=(water*250)+' ml · Goal: 2000ml';
+  const cups=document.getElementById('wbcups');
+  if(cups)cups.innerHTML=Array.from({length:8},(_,i)=>`<div class="wc${i<water?' on':''}" onclick="chgW(${i<water?-1:1})" style="width:38px;height:38px;font-size:18px;">💧</div>`).join('');
+}
+function chgW(d){water=Math.max(0,Math.min(8,water+d));lss('fl_water',water);renderBW();renderDW();}
+async function scanFood(inp){
+  const file=inp.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async ev=>{
+    document.getElementById('fimg').src=ev.target.result;
+    document.getElementById('fprev').style.display='block';
+    document.getElementById('fload').style.display='block';
+    document.getElementById('fresult').innerHTML='';
+    const b64=ev.target.result.split(',')[1];
+    const mime=file.type||'image/jpeg';
+    try{
+      const msgs=[{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:mime,data:b64}},
+        {type:'text',text:'Analyze this food image:\n1. 🍽️ Food identified\n2. ⚖️ Serving size\n3. 🔥 Calories\n4. 💪 Protein (g)\n5. 🌾 Carbs (g)\n6. 🧈 Fat (g)\n7. 🌿 Fiber (g)\n8. 💊 Key vitamins/minerals\n9. ⭐ Health rating (1-10) with reason\n10. 💡 One improvement tip\nBe specific and use emojis.'}
+      ]}];
+      const r=await fetch(BACKEND+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs,max_tokens:900})});
+      const d=await r.json();
+      document.getElementById('fresult').innerHTML=`<div class="srbox">${d.text||'Could not analyze.'}</div><button class="bsm bg2 bfull" onclick="document.getElementById('fprev').style.display='none';document.getElementById('fresult').innerHTML='';">📸 Scan Another</button>`;
+    }catch(e){document.getElementById('fresult').innerHTML=`<div style="color:#f87171;padding:14px;background:rgba(248,113,113,.1);border-radius:12px;">❌ ${e.message}</div>`;}
+    document.getElementById('fload').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function naiQ(q){document.getElementById('nai-inp').value=q;nutAsk();}
+async function nutAsk(){
+  const inp=document.getElementById('nai-inp'),q=inp.value.trim();if(!q)return;inp.value='';
+  document.getElementById('naiload').style.display='block';document.getElementById('nairesp').style.display='none';
+  try{
+    const txt=await callAI([{role:'user',content:`Nutrition expert. User: diet=${U.diet}, goal=${U.goal}, weight=${U.weight}kg. Answer with emojis: ${q}`}],null,700);
+    document.getElementById('nairesp').textContent=txt;document.getElementById('nairesp').style.display='block';
+  }catch(e){document.getElementById('nairesp').textContent='❌ '+e.message;document.getElementById('nairesp').style.display='block';}
+  document.getElementById('naiload').style.display='none';
+}
+
+// ── WORKOUT ──────────────────────────────────────────────────
+function initWkt(){
+  document.getElementById('wgtag').textContent=U.goal||'—';
+  document.getElementById('waig').textContent=U.goal||'—';
+  document.getElementById('wail').textContent=U.activity||'—';
+  renderMpills();renderExGrid();renderSets();
+}
+function wtab(t,el){
+  ['browse','log','timer','wai'].forEach(x=>document.getElementById('w-'+x).style.display='none');
+  document.getElementById('w-'+t).style.display='block';
+  document.querySelectorAll('#s-workout .stab').forEach(s=>s.classList.remove('on'));
+  if(el)el.classList.add('on');
+}
+function renderMpills(){document.getElementById('mpills').innerHTML=MUSCLES.map(m=>`<div class="pill${m===amuscle?' on':''}" onclick="pickM('${m}',this)">${m}</div>`).join('');}
+function pickM(m,el){amuscle=m;document.querySelectorAll('#mpills .pill').forEach(p=>p.classList.remove('on'));el.classList.add('on');renderExGrid();}
+function renderExGrid(){
+  const filtered=amuscle==='All'?EX:EX.filter(e=>e.m===amuscle);
+  document.getElementById('exgrid').innerHTML=filtered.map(ex=>`
+    <div class="ec" onclick="addEx('${ex.n}')">
+      <div class="ee">${ex.e}</div><div class="en">${ex.n}</div>
+      <div class="em">${ex.m} · ${ex.s}×${ex.r}</div>
+      ${prs[ex.n]?`<div class="epr">🏆 PR: ${prs[ex.n]}kg</div>`:''}
+    </div>`).join('');
+}
+function addEx(name){
+  sets.push({id:Date.now(),ex:name,reps:10,weight:50});
+  lss('fl_sets',sets);renderSets();
+  wtab('log',document.querySelectorAll('#s-workout .stab')[1]);
+}
+function renderSets(){
+  const c=document.getElementById('setcards');
+  if(!sets.length){c.innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--text2);">Browse exercises and tap to add!</div>';return;}
+  c.innerHTML=sets.map((s,i)=>`
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-weight:800;font-size:15px;">${s.ex}</div>
+        <button onclick="rmSet(${s.id})" style="background:var(--s3);border:none;color:var(--text2);font-size:16px;cursor:pointer;width:30px;height:30px;border-radius:8px;">✕</button>
+      </div>
+      <div class="sr">
+        <div class="sn">${i+1}</div>
+        <input class="sinp" type="number" placeholder="Reps" value="${s.reps}" onchange="updSet(${s.id},'reps',+this.value)"/>
+        <input class="sinp" type="number" placeholder="kg" value="${s.weight}" onchange="updSet(${s.id},'weight',+this.value)"/>
+        <button class="bsm" style="padding:10px;flex-shrink:0;" onclick="setTmr(60);wtab('timer',document.querySelectorAll('#s-workout .stab')[2])">⏱️</button>
+      </div>
+      ${prs[s.ex]?`<div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:6px;">🏆 PR: ${prs[s.ex]}kg</div>`:''}
+    </div>`).join('');
+}
+function updSet(id,f,v){
+  const s=sets.find(x=>x.id===id);if(!s)return;s[f]=v;
+  if(f==='weight'&&(!prs[s.ex]||v>prs[s.ex])){prs[s.ex]=v;lss('fl_prs',prs);renderExGrid();}
+  lss('fl_sets',sets);
+}
+function rmSet(id){sets=sets.filter(s=>s.id!==id);lss('fl_sets',sets);renderSets();}
+function setTmr(d){tdur=d;tval=d;tactive=false;clearInterval(tint);updTUI();document.getElementById('tplaybtn').textContent='▶ Start';}
+function resetTmr(){tactive=false;clearInterval(tint);tval=tdur;updTUI();document.getElementById('tplaybtn').textContent='▶ Start';}
+function toggleTmr(){
+  if(tactive){tactive=false;clearInterval(tint);document.getElementById('tplaybtn').textContent='▶ Resume';}
+  else{tactive=true;document.getElementById('tplaybtn').textContent='⏸ Pause';
+    tint=setInterval(()=>{if(tval>0){tval--;updTUI();}else{tactive=false;clearInterval(tint);document.getElementById('tplaybtn').textContent='▶ Start';alert('✅ Rest done! Next set!');tval=tdur;updTUI();}},1000);}
+}
+function updTUI(){
+  document.getElementById('tnum').textContent=tval;
+  const c=document.getElementById('tcirc');
+  c.style.strokeDashoffset=477.5*(1-(tdur>0?(tdur-tval)/tdur:0));
+  c.style.stroke=tval>10?'var(--g)':'var(--o)';
+}
+async function genWkt(){
+  document.getElementById('waiload').style.display='block';document.getElementById('wairesp').style.display='none';
+  try{
+    const txt=await callAI([{role:'user',content:`Create a ${U.goal} workout for ${U.activity} level. 5-6 exercises, sets, reps, rest time, form tips. Emojis, specific, motivating.`}],null,900);
+    document.getElementById('wairesp').textContent=txt;document.getElementById('wairesp').style.display='block';
+  }catch(e){document.getElementById('wairesp').textContent='❌ '+e.message;document.getElementById('wairesp').style.display='block';}
+  document.getElementById('waiload').style.display='none';
+}
+
+// ── YOGA ─────────────────────────────────────────────────────
+function initYoga(){
+  const w=U.weight||70;
+  const range=w<65?'light':w<90?'medium':'heavy';
+  const labels={light:'Light (<65kg)',medium:'Medium (65-90kg)',heavy:'Heavy (>90kg)'};
+  document.getElementById('yoga-tag').textContent=labels[range];
+  document.getElementById('yoga-intro').textContent=`For ${U.weight||'your'}kg · Goal: ${U.goal||'Fitness'}`;
+  renderYogaPoses(range);
+}
+function renderYogaPoses(range){
+  const poses=YOGA_DATA[range]||YOGA_DATA.medium;
+  document.getElementById('yoga-cards').innerHTML=poses.map(p=>`
+    <div class="yoga-card">
+      <div class="yoga-emoji">${p.e}</div>
+      <div class="yoga-name">${p.n}</div>
+      <div class="yoga-desc">${p.desc}</div>
+      <div class="yoga-benefit">✦ ${p.benefit}</div>
+    </div>`).join('');
+}
+function ytab(t,el){
+  ['poses','yai'].forEach(x=>document.getElementById('y-'+x).style.display='none');
+  document.getElementById('y-'+t).style.display='block';
+  document.querySelectorAll('#s-yoga .stab').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+}
+async function genYoga(){
+  document.getElementById('yaiload').style.display='block';document.getElementById('yairesp').style.display='none';
+  try{
+    const txt=await callAI([{role:'user',content:`Yoga plan for: weight=${U.weight}kg, height=${U.height}cm, age=${U.age}, goal=${U.goal}, activity=${U.activity}. 6 poses with instructions, duration, breathing, benefits. Format with emojis.`}],null,1000);
+    document.getElementById('yairesp').textContent=txt;document.getElementById('yairesp').style.display='block';
+  }catch(e){document.getElementById('yairesp').textContent='❌ '+e.message;document.getElementById('yairesp').style.display='block';}
+  document.getElementById('yaiload').style.display='none';
+}
+
+// ── PROGRESS ─────────────────────────────────────────────────
+function initPro(){renderWChart();renderSlpChart();renderWReport();renderPhotos();}
+function ptab(t,el){
+  ['vitals','weight','photos','sleep'].forEach(x=>document.getElementById('p-'+x).style.display='none');
+  document.getElementById('p-'+t).style.display='block';
+  document.querySelectorAll('#s-progress .stab').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+}
+function saveVitals(){lss('fl_vitals',{hr:document.getElementById('v-hr').value,bps:document.getElementById('v-bps').value,bpd:document.getElementById('v-bpd').value,spo2:document.getElementById('v-spo2').value,sleep:document.getElementById('v-slp').value,stress:document.getElementById('v-str').value});alert('✅ Vitals saved!');}
+function calcBMI(){
+  const w=+document.getElementById('bmi-w').value,h=+document.getElementById('bmi-h').value;if(!w||!h)return;
+  const b=(w/((h/100)**2)).toFixed(1);
+  const st=b<18.5?'Underweight':b<25?'Normal ✅':b<30?'Overweight':'Obese';
+  const cl=b<18.5?'var(--p)':b<25?'var(--g)':b<30?'var(--gold)':'var(--o)';
+  document.getElementById('bmi-v').textContent=b;document.getElementById('bmi-v').style.color=cl;
+  document.getElementById('bmi-s').textContent=st;document.getElementById('bmi-s').style.color=cl;
+}
+function renderWChart(){
+  if(!weights.length)return;
+  const mx=Math.max(...weights),mn=Math.min(...weights)-1;
+  document.getElementById('wchart').innerHTML=weights.slice(-10).map((w,i,a)=>`
+    <div class="bcol"><div class="bv">${w}</div>
+    <div class="bfill" style="height:${Math.max(((w-mn)/(mx-mn+1))*80,6)}px;background:${i===a.length-1?'var(--o)':'var(--p)'};opacity:.85;"></div>
+    <div class="bl">D${i+1}</div></div>`).join('');
+}
+function logWeight(){
+  const v=+document.getElementById('new-w').value;if(!v)return;
+  weights.push(v);lss('fl_weights',weights);document.getElementById('new-w').value='';renderWChart();renderWReport();
+}
+function renderWReport(){
+  if(!weights.length)return;
+  const l7=weights.slice(-7);
+  const avg=(l7.reduce((a,b)=>a+b,0)/l7.length).toFixed(1);
+  const chg=weights.length>1?(weights[weights.length-1]-(weights.length>=7?weights[weights.length-7]:weights[0])).toFixed(1):'0';
+  document.getElementById('wreport').innerHTML=[
+    {l:'Current Weight',v:weights[weights.length-1]+' kg'},{l:'7-Day Avg',v:avg+' kg'},
+    {l:'Change',v:(chg>0?'+':'')+chg+' kg'},{l:'Streak',v:ls('fl_streak',7)+' days 🔥'},
+  ].map(r=>`<div class="row"><div class="rl">${r.l}</div><div class="rv">${r.v}</div></div>`).join('');
+}
+function addPhoto(inp){
+  const file=inp.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{photos.push({src:ev.target.result,date:new Date().toLocaleDateString()});lss('fl_photos',photos);renderPhotos();};
+  r.readAsDataURL(file);
+}
+function renderPhotos(){
+  document.getElementById('pgrid').innerHTML=
+    `<div class="pc padd" onclick="document.getElementById('p-inp').click()"><div style="font-size:32px;">📸</div><div style="font-size:13px;font-weight:700;color:var(--text2);">Add Photo</div></div>`
+    +photos.map(p=>`<div class="pc"><img src="${p.src}" alt="progress"/><div class="pd">${p.date}</div></div>`).join('');
+  const cc=document.getElementById('cmpcard');
+  if(photos.length>=2){
+    cc.style.display='block';
+    document.getElementById('cmpwrap').innerHTML=`
+      <div style="flex:1;text-align:center;"><div style="font-size:11px;font-weight:800;color:var(--text2);margin-bottom:6px;text-transform:uppercase;">Before</div>
+      <img src="${photos[0].src}" style="width:100%;border-radius:12px;aspect-ratio:3/4;object-fit:cover;"/><div style="font-size:11px;color:var(--text2);margin-top:4px;">${photos[0].date}</div></div>
+      <div style="flex:1;text-align:center;"><div style="font-size:11px;font-weight:800;color:var(--g);margin-bottom:6px;text-transform:uppercase;">After ✨</div>
+      <img src="${photos[photos.length-1].src}" style="width:100%;border-radius:12px;aspect-ratio:3/4;object-fit:cover;"/><div style="font-size:11px;color:var(--text2);margin-top:4px;">${photos[photos.length-1].date}</div></div>`;
+  }else cc.style.display='none';
+}
+function renderSlpChart(){
+  const mx=Math.max(...slplog)||8;
+  document.getElementById('slpchart').innerHTML=slplog.map((s,i)=>`
+    <div class="bcol"><div class="bv">${s}h</div>
+    <div class="bfill" style="height:${Math.max((s/mx)*80,4)}px;background:${s>=7?'var(--g)':s>=6?'var(--gold)':'var(--o)'};opacity:.85;"></div>
+    <div class="bl">${['M','T','W','T','F','S','S'][i]}</div></div>`).join('');
+  document.getElementById('slpavg').textContent=(slplog.reduce((a,b)=>a+b,0)/slplog.length).toFixed(1)+'h';
+  document.getElementById('slpbest').textContent=Math.max(...slplog)+'h';
+}
+function logSlp(){
+  const v=+document.getElementById('new-slp').value;if(!v)return;
+  slplog=[...slplog.slice(-6),v];lss('fl_sleep',slplog);document.getElementById('new-slp').value='';renderSlpChart();
+}
+
+// ── AI COACH ─────────────────────────────────────────────────
+function initCoach(){
+  if(!chats.length)chats=[{r:'ai',t:`Hey ${(U.name||'').split(' ')[0]}! 👋 I'm your AI fitness coach.\n\nGoal: ${U.goal} | Diet: ${U.diet} | Weight: ${U.weight}kg\n\nAsk me anything about workouts, nutrition, yoga, or motivation!`}];
+  renderChats();
+  document.getElementById('qchips').innerHTML=['What should I eat today?','Give me a workout','Best yoga for my weight?','How to lose fat?','Motivate me! 💪'].map(q=>`<div class="chip" onclick="qChat('${q}')">${q}</div>`).join('');
+}
+function ctab(t,el){
+  ['chat','checkin'].forEach(x=>document.getElementById('c-'+x).style.display='none');
+  document.getElementById('c-'+t).style.display='block';
+  document.querySelectorAll('#s-coach .stab').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+}
+function renderChats(){
+  const el=document.getElementById('chatmsgs');
+  el.innerHTML=chats.map(m=>`<div class="bub ${m.r}">${m.t}</div>`).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function qChat(q){document.getElementById('chat-inp').value=q;sendChat();}
+async function sendChat(){
+  const inp=document.getElementById('chat-inp'),q=inp.value.trim();if(!q)return;
+  inp.value='';chats.push({r:'user',t:q});renderChats();
+  document.getElementById('chatload').style.display='block';
+  try{
+    const hist=chats.slice(-12).map(m=>({role:m.r==='ai'?'assistant':'user',content:m.t}));
+    const sys=`Expert fitness & nutrition AI coach. User: name=${U.name}, goal=${U.goal}, diet=${U.diet}, weight=${U.weight}kg, height=${U.height}cm, age=${U.age}, activity=${U.activity}. Be motivating, concise, practical. Use emojis.`;
+    const txt=await callAI(hist,sys,700);
+    chats.push({r:'ai',t:txt||"I'm here!"});
+    lss('fl_chats',chats.slice(-30));renderChats();
+  }catch(e){chats.push({r:'ai',t:'❌ '+e.message});renderChats();}
+  document.getElementById('chatload').style.display='none';
+}
+function setMood(v,el){mood=v;document.querySelectorAll('.emo').forEach(e=>e.classList.remove('on'));el.classList.add('on');}
+async function doCheckin(){
+  document.getElementById('ciload').style.display='block';
+  const en=document.getElementById('en-sl').value,sl=document.getElementById('slpt-sl').value;
+  try{
+    const txt=await callAI([{role:'user',content:`Check-in: mood=${mood}/5, energy=${en}/10, slept=${sl}h. User: goal=${U.goal}, diet=${U.diet}, weight=${U.weight}kg. Give specific advice for today. Use emojis.`}],null,600);
+    chats.push({r:'ai',t:"📊 Today's Check-in:\n\n"+txt});
+    lss('fl_chats',chats.slice(-30));
+    ctab('chat',document.querySelectorAll('#s-coach .stab')[0]);renderChats();
+  }catch(e){alert('❌ '+e.message);}
+  document.getElementById('ciload').style.display='none';
+}
+
+// ── AUTO LOGIN ────────────────────────────────────────────────
+window.onload=()=>{
+  const em=ls('fl_last',null);
+  if(em){const u=ls('fla_'+em,null);if(u&&u.onboarded){U=u;document.getElementById('auth-screen').style.display='none';showMain();}}
+};
+</script>
+</body>
+</html>
