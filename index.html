@@ -819,7 +819,7 @@ function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}c
 function lss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
 
 // ── BACKEND API ───────────────────────────────────────────────
-const BACKEND=https://fitlife-backend-w0yf.onrender.com;
+const BACKEND='https://fitlife-backend-w0yf.onrender.com';
 async function callAI(messages,system,maxTokens=800){
   const r=await fetch(BACKEND+'/api/chat',{
     method:'POST',headers:{'Content-Type':'application/json'},
